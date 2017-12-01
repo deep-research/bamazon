@@ -37,7 +37,7 @@ var makePurchase = function() {
             name: 'id',
             message: "Enter an item number:",
             validate: function(value) {
-                if (value > 0) {
+                if (value > 0 && value <= 10) {
                   return true;
                 }      
                 return 'Please enter a valid number';
@@ -56,8 +56,47 @@ var makePurchase = function() {
         }
     ]
     inquirer.prompt(questions).then(answers => {
-        console.log("The item number is: " + answers.id)
-        console.log("Order amount: " + answers.count)
-        connect.end()
+        var itemNumber = answers.id
+        var orderCount = answers.count
+
+        checkInventory(itemNumber, orderCount)
     });    
+}
+
+var checkInventory = function(item, order) {
+    connect.query("SELECT stock_quantity FROM products " +
+                  "WHERE item_id=" + item, function(err, res) {
+        if(err) throw err
+
+        var inventory = res[0].stock_quantity
+
+        if (order > inventory) {
+            console.log("We only have " +  inventory + " in stock!")
+            console.log("")
+            orderAgain()
+        } else {
+            console.log(inventory, item, order)
+            console.log("Run the order")
+        
+            connect.end()
+        }
+    })
+}
+
+var orderAgain = function() {
+    var question = [
+        {
+            type: 'confirm',
+            name: 'continue',
+            message: "Would you like to try again?"
+        }
+    ]
+    inquirer.prompt(question).then(answer => {
+        if (answer.continue) {
+            console.log("")
+            makePurchase()
+        } else {
+            process.exit()
+        }
+    });       
 }

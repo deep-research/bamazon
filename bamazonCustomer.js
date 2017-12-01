@@ -35,12 +35,28 @@ var makePurchase = function() {
         {
             type: 'input',
             name: 'id',
-            message: "Enter an item number:"
+            message: "Enter an item number:",
+            validate: function(value) {
+                var pass = value.match(/^[1-9][0-9]*$/);
+                if (pass) {
+                  return true;
+                }
+          
+                return 'Please enter a valid number';
+              }
         },
         {
             type: 'input',
             name: 'count',
-            message: "How many would you like?"
+            message: "How many would you like?",
+            validate: function(value) {
+                var pass = value.match(/^[1-9][0-9]*$/);
+                if (pass) {
+                  return true;
+                }
+          
+                return 'Please enter a valid number';
+              }
         }
     ]
     inquirer.prompt(questions).then(answers => {

@@ -101,10 +101,24 @@ var orderAgain = function() {
 var makeAnOrder = function(item, order, oldInventory) {
     var updatedInventory = oldInventory - order
 
-    connect.query("UPDATE products SET stock_quantity=" + 20 +
+    connect.query("UPDATE products SET stock_quantity=" + updatedInventory +
                   " WHERE item_id=" + item, function(err, res) {
         if(err) throw err
-                    
+
+        getPrice(item, order)
+    })
+}
+
+var getPrice = function(item, count) {
+    connect.query("SELECT price FROM products " +
+                  "WHERE item_id=" + item, function(err, res) {
+        if(err) throw err
+
+        var unitPrice = res[0].price
+        var totalCost = unitPrice * count
+
+        console.log("Order total: $" + totalCost)
+
         connect.end()
     })
 }

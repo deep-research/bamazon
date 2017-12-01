@@ -12,10 +12,10 @@ var connect = mysql.createConnection({
 connect.connect(function (err) {
     if(err) throw err;
 
-    viewCatalogue()
+    viewCatalog()
 })
 
-var viewCatalogue = function() {
+var viewCatalog = function() {
     connect.query("SELECT * FROM products", function(err, res) {
         if(err) throw err
         console.log("PRODUCT LISTING")

@@ -18,26 +18,31 @@ connect.connect(function (err) {
 var viewCatalog = function() {
     connect.query("SELECT * FROM products", function(err, res) {
         if(err) throw err
+
         console.log("PRODUCT LISTING")
-        for (i=0; i<res.length; i++) {
+
+        var productCount = res.length
+        for (i=0; i<productCount; i++) {
             console.log("Item "+ res[i].item_id + ": " +
                         res[i].product_name +
                         " ($" + res[i].price + ")")
         }
+
         console.log("")
-        console.log("BUY AN ITEM")
-        makePurchase()
+        makePurchase(productCount)
     })
 }
 
-var makePurchase = function() {
+var makePurchase = function(productCount) {
+    console.log("BUY AN ITEM")
+
     var questions = [
         {
             type: 'input',
             name: 'id',
             message: "Enter an item number:",
             validate: function(value) {
-                if (value > 0 && value <= 10) {
+                if (value > 0 && value <= productCount) {
                   return true;
                 }      
                 return 'Please enter a valid number';
@@ -59,11 +64,11 @@ var makePurchase = function() {
         var itemNumber = answers.id
         var orderCount = answers.count
 
-        checkInventory(itemNumber, orderCount)
+        checkInventory(itemNumber, orderCount, productCount)
     });    
 }
 
-var checkInventory = function(item, order) {
+var checkInventory = function(item, order, productCount) {
     connect.query("SELECT stock_quantity FROM products " +
                   "WHERE item_id=" + item, function(err, res) {
         if(err) throw err
@@ -73,14 +78,14 @@ var checkInventory = function(item, order) {
         if (order > inventory) {
             console.log("We only have " +  inventory + " in stock!")
             console.log("")
-            orderAgain()
+            orderAgain(productCount)
         } else {
             makeAnOrder(item, order, inventory)
         }
     })
 }
 
-var orderAgain = function() {
+var orderAgain = function(productCount) {
     var question = [
         {
             type: 'confirm',
@@ -91,7 +96,7 @@ var orderAgain = function() {
     inquirer.prompt(question).then(answer => {
         if (answer.continue) {
             console.log("")
-            makePurchase()
+            makePurchase(productCount)
         } else {
             process.exit()
         }

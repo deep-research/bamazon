@@ -37,11 +37,9 @@ var makePurchase = function() {
             name: 'id',
             message: "Enter an item number:",
             validate: function(value) {
-                var pass = value.match(/^[1-9][0-9]*$/);
-                if (pass) {
+                if (value > 0) {
                   return true;
-                }
-          
+                }      
                 return 'Please enter a valid number';
               }
         },
@@ -50,11 +48,9 @@ var makePurchase = function() {
             name: 'count',
             message: "How many would you like?",
             validate: function(value) {
-                var pass = value.match(/^[1-9][0-9]*$/);
-                if (pass) {
+                if (value > 0) {
                   return true;
-                }
-          
+                }      
                 return 'Please enter a valid number';
               }
         }

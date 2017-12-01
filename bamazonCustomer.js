@@ -75,10 +75,7 @@ var checkInventory = function(item, order) {
             console.log("")
             orderAgain()
         } else {
-            console.log(inventory, item, order)
-            console.log("Run the order")
-        
-            connect.end()
+            makeAnOrder(item, order, inventory)
         }
     })
 }
@@ -99,4 +96,15 @@ var orderAgain = function() {
             process.exit()
         }
     });       
+}
+
+var makeAnOrder = function(item, order, oldInventory) {
+    var updatedInventory = oldInventory - order
+
+    connect.query("UPDATE products SET stock_quantity=" + 20 +
+                  " WHERE item_id=" + item, function(err, res) {
+        if(err) throw err
+                    
+        connect.end()
+    })
 }

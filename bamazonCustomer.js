@@ -134,7 +134,7 @@ var orderAgain = function(productCount) {
 
 // Process the order request by reducing the inventory size
 var makeAnOrder = function(item, order, oldInventory) {
-    // Simple subtraction to get the new inventory size
+    // Subtraction to get the new inventory size
     var updatedInventory = oldInventory - order
 
     // MySQL UPDATE statement
@@ -154,7 +154,7 @@ var getPrice = function(item, count) {
                   "WHERE item_id=" + item, function(err, res) {
         if(err) throw err
 
-        // Simple multiplication to get the total price
+        // Multiplication to get the total price
         var unitPrice = res[0].price
         var totalCost = unitPrice * count
 

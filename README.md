@@ -17,7 +17,7 @@ A trading application written with Node.js and MySQL Server. This program allows
 * Make sure that a database server instance of MySQL Server is running.
 * Run the `schema.sql` script in MySQL Server to create the database.
 * Run the `insert-ten.sql` script in MySQL Server to populate the `products` table.
-* Make sure the database credentials in the bamazonCustomer.js file are correct for your system.
+* Make sure the database credentials (lines six to ten) in the bamazonCustomer.js file are correct for your system.
     * In Windows, your password can be saved as an environmental variable and referenced as `process.env.YOUR_MYSQL_PASSWORD`.
 * Once everything is ready, entering `node bamazonCustomer.js` into the command line will run the main program.
 

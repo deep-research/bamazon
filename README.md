@@ -23,6 +23,8 @@ A trading application written with Node.js and MySQL Server. This program allows
 
 ### Screenshot Descriptions
 
+The screenshot examples can be found in the "screenshots" folder.
+
 1. The program starts by listing information on every item in the inventory.
 2. The user is then prompted to buy an item. If the transaction is sucessful, the total cost of the order is displayed.
 3. If the order is too large, the user is asked whether they would like to try again.

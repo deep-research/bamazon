@@ -18,3 +18,13 @@ A trading application written with Node.js and MySQL Server. This program allows
 * Run the `schema.sql` script in MySQL Server to create the database.
 * Run the `insert-ten.sql` script in MySQL Server to populate the `products` table.
 * Once everything is ready, entering `node bamazonCustomer.js` into the command line will run the main program.
+
+### Screenshot Descriptions
+
+1. The program starts by listing information on every item in the inventory.
+2. The user is then prompted to buy an item. If the transaction is sucessful, the total cost of the order is displayed.
+3. If the order is too large, the user is asked whether they would like to try again.
+    * If the user say no, the program is closed.
+    * If the user says yes, the program returns to step two.
+4. This is what the database looked like before the transaction was made.
+5. After the transaction, the stock quantity of guitar amplifiers was reduced by three from eighteen to fifteen.

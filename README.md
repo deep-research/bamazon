@@ -1,6 +1,6 @@
 # bamazon
 
-A trading application written with Node.js and MySQL Server, which allows customers to purchase existing products.
+A trading application written with Node.js and MySQL Server. This program allows customers to purchase existing products from a database with command line input.
 
 ### Prerequisites
 
